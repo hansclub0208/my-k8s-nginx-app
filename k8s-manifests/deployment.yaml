@@ -1,0 +1,22 @@
+# k8s-manifests/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-nginx-app
+  labels:
+    app: my-nginx-app
+spec:
+  replicas: 2 # 원하는 Pod 개수
+  selector:
+    matchLabels:
+      app: my-nginx-app
+  template:
+    metadata:
+      labels:
+        app: my-nginx-app
+    spec:
+      containers:
+      - name: my-nginx-container
+        image: hansclub/my-k8s-nginx-app:latest # Docker Hub 이미지 경로 (ArgoCD가 업데이트할 수 있도록 :latest 또는 특정 버전 명시)
+        ports:
+        - containerPort: 80

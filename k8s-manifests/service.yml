@@ -1,0 +1,15 @@
+# k8s-manifests/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-nginx-app-svc
+spec:
+  type: NodePort # VM 환경에서 외부 접근을 위해 NodePort 사용
+  selector:
+    app: my-nginx-app # Deployment의 Pod 라벨과 일치해야 함
+  ports:
+  - protocol: TCP
+    port: 80 # Service 내부 포트
+    targetPort: 80 # Pod의 containerPort와 일치
+    nodePort: 30080 # 지정하지 않으면 K8s가 임의의 포트(30000-32767) 할당
+                     # 필요시 주석 해제하고 포트 지정 (충돌 주의)
